@@ -1,0 +1,13 @@
+d=list(input())
+print(d)
+k=int(input())
+while(len(d)>1):
+    n=len(d)
+    f=int(d[1])
+    d.pop(1)
+    l=int(d[-1])
+    d.pop(-1)
+    z=(f+l)%k
+    i=(n/2)+1
+    d.insert(z,i)
+    print(d)
