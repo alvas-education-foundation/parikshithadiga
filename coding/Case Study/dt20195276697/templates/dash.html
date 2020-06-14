@@ -1,0 +1,125 @@
+
+ <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+     <title>	blood bank</title>
+   
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/dp3.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/dp2.css')}}">
+    
+ 
+     
+  </head>
+  <body>
+<script>
+    var error = '{{ er }}';
+    if(error){
+    	alert(error)}
+  </script>
+
+      <header>
+
+          
+          <p style="font-size:55px;font-weight:bold;width:80%;left:10%;text-align:center;color:beige;">
+            Application of blood bank Dashboard</p>
+
+
+
+      </header>
+
+      <section class="boxcontainer">
+        <div class="side-nav">
+          <nav >
+            <ul>
+              <li class="active">
+                <div class="nav1" style="font-weight:bold;font-size:120%;">
+
+                 <p>{{welcome}}</p>
+                </div>
+              </li>
+<li class="active">
+<span><button onclick="document.getElementById('upr').style.display='block'" style="width:auto;">update Profile</button></span>
+
+
+<span><form action="/logout" method="post"><button type="submit" name="lout">logout</button></form> </span>
+
+               </li></ul>
+           </nav>
+
+        </div>
+
+		<div class="main-content">
+
+           <div class="title">
+              <label>data</label>
+              <p> A blood bank is a center where blood gathered as a result of blood donation is stored and preserved for later use in blood transfusion. The term "blood bank" typically refers to a division of a hospital where the storage of blood product occurs and where proper testing is performed (to reduce the risk of transfusion related adverse events). However, it sometimes refers to a collection center, and indeed some hospitals also perform collection.
+
+For blood donation agencies in various countries, see List of blood donation agencies and List of blood donation agencies in the United States. 
+              </p>
+			</div>
+	<div class="options"> </div>
+
+   <div class="dropdown-content">
+            <div id="upr" class="modal">
+                     <form class="modal-content animate" action="/update" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('upr').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  <label for="vcn"><b>name</b></label>
+                 <input type="text" placeholder=" Enter name" name="vcn" required>
+                  <label for="vrn"><b> Address</b></label>
+                  <input type="text" placeholder=" Enter address" name="vrn" required>
+                 <label for="in"><b>blood group</b></label>
+                 <input type="text" placeholder="Enter blood group" name="in" required>
+		<label for="in"><b> relation number</b></label>
+                 <input type="text" placeholder="Enter relation Number" name="fir" required>
+                 <label for="rrn"><b> relation name</b></label>
+                 <input type="text" placeholder="Enter relation Name" name="rrn" required>
+
+                 
+                 <button type="submit">Submit</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('upr').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+  
+      </section>
+
+<script>
+
+var modal1 = document.getElementById('upr');
+
+window.onclick = function(event) {
+    if (event.target == modal1) {
+        modal.style.display = "none";
+    }
+}
+var modal2 = document.getElementById('chp');
+
+window.onclick = function(event) {
+    if (event.target == modal2) {
+        modal.style.display = "none";
+    }
+}
+var modal3 = document.getElementById('am');
+
+window.onclick = function(event) {
+    if (event.target == modal3) {
+        modal.style.display = "none";
+    }
+}
+</script>
+  </body>
+
+</html>
