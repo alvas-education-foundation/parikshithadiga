@@ -1,8 +1,8 @@
 
 body{
-       background-image: url("../img/bg.jpg");
+      /* background-image: url("../img/bg.jpg");
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: cover;*/
 }
 /* Full-width input fields */
 input[type=text], input[type=password],input[type=email] {

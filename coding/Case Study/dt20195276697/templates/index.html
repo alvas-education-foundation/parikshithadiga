@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>blood bank</title>
+    <title>ABC Bank</title>
     
    
     <link rel="stylesheet" href="{{ url_for('static',filename='css/dp1.css')}}">
@@ -15,10 +15,9 @@
     if(error){
     	alert(error)}
   </script>
-<h2>BLOOD BANK MANAGEMENT SYSTEM</h2>
+<h2> BANK MANAGEMENT SYSTEM</h2>
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">SignUP</button>
 
 <div id="id01" class="modal">
   
@@ -45,54 +44,17 @@
     </div>
   </form>
 </div>
-<div id="id02" class="modal">
-  
-  <form class="modal-content animate" action="/signup" method="post" autocomplete="off">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-     
-    </div>
-
-    <div class="container">
-      <label for="uname"><b>Name</b></label>
-      <input type="text" placeholder="Enter Name" name="uname" required>
- <label for="contactnumb"><b>contact number</b></label>
-      <input type="text" placeholder="Enter your number" name="contactnumber" required>
- 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-  <label for="psw1"><b>Re-Enter Password</b></label>
-      <input type="password" placeholder="Re-Enter Password" name="psw1" required>
-      
-        
-      <button type="submit">Signup</button>
-      
-    </div>
- 
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-      
-    </div>
-  </form>
-</div>
-
-
 
 <script>
 
 var modal = document.getElementById('id01');
-var modal1=document.getElementById('id02');
 
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 }
-window.onclick = function(event) {
-    if (event.target == modal1) {
-        modal1.style.display = "none";
-    }
-}
+
 </script>
 
   

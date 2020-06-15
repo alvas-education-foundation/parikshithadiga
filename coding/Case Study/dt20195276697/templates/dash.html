@@ -3,13 +3,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-     <title>	blood bank</title>
+     <title>abc bank</title>
    
     <link rel="stylesheet" href="{{ url_for('static',filename='css/dp3.css')}}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/dp2.css')}}">
     
- 
-     
+
   </head>
   <body>
 <script>
@@ -22,7 +21,7 @@
 
           
           <p style="font-size:55px;font-weight:bold;width:80%;left:10%;text-align:center;color:beige;">
-            Application of blood bank Dashboard</p>
+            Banking Dashboard</p>
 
 
 
@@ -35,12 +34,19 @@
               <li class="active">
                 <div class="nav1" style="font-weight:bold;font-size:120%;">
 
-                 <p>{{welcome}}</p>
+                 <p>Welcome {{welcome}}</p>
                 </div>
               </li>
 <li class="active">
-<span><button onclick="document.getElementById('upr').style.display='block'" style="width:auto;">update Profile</button></span>
 
+  <span><button onclick="document.getElementById('customer').style.display='block'" style="width:auto;">Customer Management
+              </button><span>
+  <span><button onclick="document.getElementById('account').style.display='block'" style="width:auto;">Account Management
+              </button><span>
+   <span><button onclick="document.getElementById('statusdetials').style.display='block'" style="width:auto;"> Status Detials
+              </button><span>
+  <span><button onclick="document.getElementById('operation').style.display='block'" style="width:auto;">Account Operation
+              </button><span>
 
 <span><form action="/logout" method="post"><button type="submit" name="lout">logout</button></form> </span>
 
@@ -53,32 +59,109 @@
 
            <div class="title">
               <label>data</label>
-              <p> A blood bank is a center where blood gathered as a result of blood donation is stored and preserved for later use in blood transfusion. The term "blood bank" typically refers to a division of a hospital where the storage of blood product occurs and where proper testing is performed (to reduce the risk of transfusion related adverse events). However, it sometimes refers to a collection center, and indeed some hospitals also perform collection.
-
-For blood donation agencies in various countries, see List of blood donation agencies and List of blood donation agencies in the United States. 
-              </p>
-			</div>
+            
 	<div class="options"> </div>
+	<div class="main">
+                           <div class="widget">
+                           <div id="images">
+                           
+                           
+                           <section id="customer">
+                           
+	  <span><button onclick="document.getElementById('newcustomer').style.display='block'" style="width:auto;">New Customer
+              </button><span>
+<span><button onclick="document.getElementById('updatecustomer').style.display='block'" style="width:auto;">Update Customer</button></span>
 
+ <span><button onclick="document.getElementById('deletecustomer').style.display='block'" style="width:auto;">Delete Customer
+              </button><span>
+              
+              
+               </section>
+   
+   <section id="account">
+     
+   <span><button onclick="document.getElementById('addaccount').style.display='block'" style="width:auto;">Create Account</button></span>
+
+ <span><button onclick="document.getElementById('deleteaccount').style.display='block'" style="width:auto;">Delete Account
+              </button><span>
+  <span><button onclick="document.getElementById('searchcustomer').style.display='block'" style="width:auto;">Search Account
+              </button><span>
+    
+  </section>
+   <button> <label><b>VIEW</b></label></button>
+
+    
+    
+      <section id="statusdetials">
+   
+   
+    <span><button onclick="document.getElementById('accountstatus').style.display='block'" style="width:auto;">Account Status</button></span>
+
+ <span><button onclick="document.getElementById('customerstatus').style.display='block'" style="width:auto;">Customer Status
+              </button><span>
+   
+  
+  
+  
+  
+    </section>
+    
+    
+    
+    
+    
+    <section id="operation">
+     <span><button onclick="document.getElementById('searchaccount').style.display='block'" style="width:auto;">Search Account
+              </button><span>
+   
+ 
+  
+    </section>
+    
+    
+    
+    
+    
+			</div>
+			</div>
+			</div>
+			</div>
+  
    <div class="dropdown-content">
-            <div id="upr" class="modal">
-                     <form class="modal-content animate" action="/update" method="post" autocomplete="off">
+   
+            <div id="newcustomer" class="modal">
+                     <form class="modal-content animate" action="/addncus" method="post" autocomplete="off">
                    <div class="imgcontainer">
-                  <span onclick="document.getElementById('upr').style.display='none'" class="close" title="Close ">&times;</span>
+                  <span onclick="document.getElementById('newcustomer').style.display='none'" class="close" title="Close ">&times;</span>
      
                    </div>
 
                   <div class="container">
-                  <label for="vcn"><b>name</b></label>
-                 <input type="text" placeholder=" Enter name" name="vcn" required>
-                  <label for="vrn"><b> Address</b></label>
-                  <input type="text" placeholder=" Enter address" name="vrn" required>
-                 <label for="in"><b>blood group</b></label>
-                 <input type="text" placeholder="Enter blood group" name="in" required>
-		<label for="in"><b> relation number</b></label>
-                 <input type="text" placeholder="Enter relation Number" name="fir" required>
-                 <label for="rrn"><b> relation name</b></label>
-                 <input type="text" placeholder="Enter relation Name" name="rrn" required>
+                   <label for="ssn"><b>SSN ID</b></label>
+                 <input type="text" placeholder=" Enter SSN ID" name="ssn" required>
+                 <label for="name"><b>Name</b></label>
+                 <input type="text" placeholder=" Enter Name of Customer" name="name" required>
+                  <label for="age"><b> Age</b></label>
+                  <input type="text" placeholder=" Enter Age of Customer " name="age" required>
+                  <label for="addressl1"><b> Address Line 1</b></label>
+                  <input type="text" placeholder=" Enter address " name="addressl1" required>
+                   <label for="addressl2"><b> Address Line 2</b></label>
+                  <input type="text" placeholder=" Enter address " name="addressl2" required>
+                 <label for="state"><b>State</b></label>
+                 <select name="state">
+                           <option value="karnataka">Karnataka</option>
+                           <option value="maharastra">Maharastra</option>
+                           <option value="goa">Goa</option>
+                           <option value="kerala">Kerala</option>
+                 </select>
+                 <label for="city"><b>City</b></label>
+                  <select name="city">
+                           <option value="bengalore">Bengalore</option>
+                           <option value="pune">Pune</option>
+                           <option value="panaji">Panaji</option>
+                           <option value="kochi">Kochi</option>
+                           <option value="mangalore">Mangalore</option>
+                 </select>
 
                  
                  <button type="submit">Submit</button>
@@ -86,7 +169,50 @@ For blood donation agencies in various countries, see List of blood donation age
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('upr').style.display='none'" class="cancelbtn">Cancel</button>
+      <button type="button" onclick="document.getElementById('newcustomer').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+        
+   <div class="dropdown-content">
+   
+            <div id="updatecustomer" class="modal">
+                     <form class="modal-content animate" action="/updatecus" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('updatecustomer').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                
+                  
+                 <label for="ssnid"><b>Enter the SSN ID</b></label>
+               <input type="text" placeholder=" Enter Customer ID" name="ssnid" required>
+                 
+                   {%if(val)%}
+  
+                 <label><b>Customer SSN ID:</b> <b>{{cssid}}</b></label><br><br>
+                  <label><b>Customer ID:</b> <b>{{cusid}}</b></label><br><br>
+                  <label><b>Customer Old Name:</b> <b>{{coname}}</b></label><br><br>
+                  
+                 <label for="name"><b>Customer New Name</b></label>
+                 <input type="text" placeholder=" Enter Name of Customer" name="name" required><br><br>
+                 <label><b>Customer Old Age:</b> <b>{{coage}}</b></label><br><br>
+                  <label for="age"><b> Age</b></label>
+                  <input type="text" placeholder=" Enter New Age of Customer " name="age" required><br><br>
+                  <label><b>Customer Old Address:</b> <b>{{coaddress}}</b></label><br><br>
+                  <label for="address"><b>  Enter New Address</b></label>
+                  <input type="text" placeholder=" Enter new address " name="address" required>
+             {% endif %}
+                 <button type="submit">Submit</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('updatecustomer').style.display='none'" class="cancelbtn">Cancel</button>
       
     </div>
   </form>
@@ -94,31 +220,579 @@ For blood donation agencies in various countries, see List of blood donation age
 		    </div>
         </div>
   
+  
+  
+  
+  
+  
+  
+   <div class="dropdown-content">
+   
+            <div id="deletecustomer" class="modal">
+                     <form class="modal-content animate" action="/searchcus" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('deletecustomer').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                 
+                 <label for="ssnid"><b>Enter the SSN ID</b></label>
+                 <input type="text" placeholder=" Enter SSN ID" name="ssnid" required>
+                 
+                  <label for="cusid"><b>Enter the CUSTOMER ID</b></label>
+                 <input type="text" placeholder=" Enter Customer ID" name="cid" required>
+                
+            <span><form action="/adeletecus" method="post"><button type="submit" name="enter">Enter</button></form> </span>
+             
+             <label><b>Customer SSN ID:</b> <b>{{cssid}}</b></label><br><br>
+                  <label><b>Customer ID:</b> <b>{{cusid}}</b></label><br><br>
+                  <label><b>Customer  Name:</b> <b>{{cname}}</b></label><br><br>
+                  <label><b>Customer  Age:</b> <b>{{cage}}</b></label><br><br>
+                  <label><b>Customer  Address:</b> <b>{{cadd}}</b></label><br><br>
+             
+       
+                 <button type="submit">Delete</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('deletecustomer').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+  
+  
+ <div class="dropdown-content">
+   
+            <div id="addaccount" class="modal">
+                     <form class="modal-content animate" action="/addaccount" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('addaccount').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                 
+                 
+                 
+                  <label for="cid"><b>Enter the CUSTOMER ID</b></label>
+                 <input type="text" placeholder=" Enter Customer ID" name="cid" required>
+                 
+                <label for="acctype"><b>Enter the Account type</b></label>
+                 <select name="acctype">
+                           <option value="Saving">Saving</option>
+                           <option value="current">Current</option>
+                           
+                 </select>
+                  <label for="acctype"><b>Enter the Deposit Amount</b></label>
+                  <input type="text" placeholder=" Enter Amount" name="amount" required>
+                
+       
+                 <button type="submit">Create Account</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('addaccount').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+ 
+ <div class="dropdown-content">
+   
+            <div id="deleteaccount" class="modal">
+                     <form class="modal-content animate" action="/deleteaccount" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('deleteaccount').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                 
+                 <label for="cid"><b>Enter the CUSTOMER ID</b></label>
+                 <input type="text" placeholder=" Enter Customer ID" name="cid" required>
+                 
+                  <label for="aid"><b>Enter the Account ID</b></label>
+                 <input type="text" placeholder=" Enter account ID" name="aid" required>
+                 
+                <label for="acctype"><b>Enter the Account type</b></label>
+                 <select name="acctype">
+                           <option value="Saving">Saving</option>
+                           <option value="current">Current</option>
+                           
+                 </select>
+                 
+                
+       
+                 <button type="submit">Delete Account</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('deleteaccount').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+  
+   
+  
+ <div class="dropdown-content">
+   
+            <div id="searchcustomer" class="modal">
+                     <form class="modal-content animate" action="/searchcustomer" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('searchcustomer').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                 
+                 
+                 
+                  <label for="cid"><b>Enter the CUSTOMER ID</b></label>
+                 <input type="text" placeholder=" Enter Customer ID" name="cid" required>
+                 
+                  
+                 
+                <label for="ssnid"><b>Enter the SSN ID</b></label>
+               <input type="text" placeholder=" Enter Customer ID" name="ssnid" required>
+                 
+                
+       
+                 <button type="submit">Search</button>
+                 
+                      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('searchcustomer').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div> 
+    
+      
+  
+   
+   
+      
+  
+ <div class="dropdown-content">
+   
+            <div id="accountstatus" class="modal">
+                     <form class="modal-content animate" action="/accountstatus " method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('accountstatus').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                   
+                   
+                   <table border='1'>
+        <tr><th>cc number</th><th>vehicle register number</th><th>policy number</th><th>Fir number</th></tr>
+        <tr>
+
+              <td>
+                  {{cc}}
+              </td>
+              <td>
+                    {{vn}}
+              </td>
+                    
+               <td>
+                      {{pn}}
+               </td>
+               <td>
+                      {{fir}}
+               </td>
+
+          </tr>
+
+    </table>
+                 
+                 
+                
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('accountstatus').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div> 
+    
+    
+   
+ <div class="dropdown-content">
+   
+            <div id="customerstatus" class="modal">
+                     <form class="modal-content animate" action="/customerstatus" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('customerstatus').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                 
+                 
+                 
+                
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('customerstatus').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>  
+        
+ <div class="dropdown-content">
+   
+            <div id="searchaccount" class="modal">
+                     <form class="modal-content animate" action="/searchaccount" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('searchaccount').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  
+                                  
+
+                <label for="ssnid"><b>Enter the ACCOUNT ID</b></label>
+               <input type="text" placeholder=" Enter Customer ID" name="ssnid" required>
+                 
+                
+       
+           
+     
+    <span><button onclick="document.getElementById('depositmoney').style.display='block'" style="width:auto;">Deposit Money</button></span>
+
+ <span><button onclick="document.getElementById('withdrawmoney').style.display='block'" style="width:auto;">Withdraw Money
+              </button><span>
+  <span><button onclick="document.getElementById('transfermoney').style.display='block'" style="width:auto;">Transfer Money
+              </button><span>
+              
+      <span><button onclick="document.getElementById('accountstatement').style.display='block'" style="width:auto;">Account Statement
+              </button><span>
+   
+                 
+                 
+                 
+                
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('searchaccount').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>  
+        
+        
+  
+   <div class="dropdown-content">
+   
+            <div id="depositmoney" class="modal">
+                     <form class="modal-content animate" action="/depositmoney" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('depositmoney').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  
+                  
+                  <label><b>Customer ID:</b> <b>{{cid}}</b></label><br><br>
+                  <label><b>Account ID:</b> <b>{{aid}}</b></label><br><br>
+                  <label><b>Account Type:</b> <b>{{actype}}</b></label><br><br>
+                  
+                  <label><b>Balance:</b> <b>{{bal}}</b></label><br><br>
+                    <label for="ssnid"><b>Enter the Amount to Deposit:</b></label>
+               <input type="text" placeholder=" Enter amount" name="amt" required>
+             
+        <button type="submit">Submit</button>
+                  
+                 
+                
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('depositmoney').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+  
+  
+  
+     <div class="dropdown-content">
+   
+            <div id="withdrawmoney" class="modal">
+                     <form class="modal-content animate" action="/withdrawmoney" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('withdrawmoney').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  
+                   <label><b>Customer ID:</b> <b>{{cid}}</b></label><br><br>
+                  <label><b>Account ID:</b> <b>{{aid}}</b></label><br><br>
+                  <label><b>Account Type:</b> <b>{{actype}}</b></label><br><br>
+                  
+                  <label><b>Balance:</b> <b>{{bal}}</b></label><br><br>
+                    <label for="ssnid"><b>Enter the Amount to Withdraw:</b></label>
+               <input type="text" placeholder=" Enter amount" name="amt" required>
+                  
+                  <button type="submit">Submit</button>
+                
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('withdrawmoney').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+        
+        
+   <div class="dropdown-content">
+   
+            <div id="transfermoney" class="modal">
+                     <form class="modal-content animate" action="/transfermoney" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('transfermoney').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  
+                 
+                  <label for="cid"><b>Enter the Account ID to Transfer</b></label>
+                 <input type="text" placeholder=" Enter  ID" name="cid" required>
+                 
+                <label for="acctype"><b>Enter the Account Source type</b></label>
+                 <select name="acctype">
+                           <option value="Saving">Saving</option>
+                           <option value="current">Current</option>
+                           
+                 </select>
+                  
+                  <label for="acctype"><b>Enter the Account Target type</b></label>
+                 <select name="acctype">
+                           <option value="Saving">Saving</option>
+                           <option value="current">Current</option>
+                           
+                 </select>
+                 
+                 <label for="ssnid"><b>Enter the Amount to Transfer:</b></label>
+               <input type="text" placeholder=" Enter amount" name="amt" required>
+                 
+                   <button type="submit">Submit</button>
+                 
+                
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('transfermoney').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+        
+        
+    <div class="dropdown-content">
+   
+            <div id="accountstatement" class="modal">
+                     <form class="modal-content animate" action="/accountstatement" method="post" autocomplete="off">
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('accountstatement').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  
+                  <label><b>Account ID:</b> <b>{{aid}}</b></label><br><br>
+                  
+                  <label for="startdate"><b>Start Date:</b></label>
+               <input type="date" placeholder=" Enter date" name="startdate" required>
+               <label for="lastdate"><b>Start Date:</b></label>
+               <input type="date" placeholder=" Enter last date" name="lastdate" required>
+                 
+                  
+             <button type="submit">Submit</button>     
+                
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('accountstatement').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>
+  </form>
+
+		    </div>
+        </div>
+        
+       
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
       </section>
 
 <script>
 
-var modal1 = document.getElementById('upr');
+var modal1 = document.getElementById('newcustomer');
 
 window.onclick = function(event) {
     if (event.target == modal1) {
         modal.style.display = "none";
     }
 }
-var modal2 = document.getElementById('chp');
+var modal2 = document.getElementById('updatecustomer');
 
 window.onclick = function(event) {
     if (event.target == modal2) {
         modal.style.display = "none";
     }
 }
-var modal3 = document.getElementById('am');
+var modal3 = document.getElementById('deletecustomer');
 
 window.onclick = function(event) {
     if (event.target == modal3) {
         modal.style.display = "none";
     }
 }
+
+
+
+var modal4 = document.getElementById('addaccount');
+
+window.onclick = function(event) {
+    if (event.target == modal4) {
+        modal.style.display = "none";
+    }
+}
+
+
+var modal5 = document.getElementById('deleteaccount');
+
+window.onclick = function(event) {
+    if (event.target == modal5) {
+        modal.style.display = "none";
+    }
+}
+
+
+
+var modal6 = document.getElementById('searchcustomer');
+
+window.onclick = function(event) {
+    if (event.target == modal6) {
+        modal.style.display = "none";
+    }
+}
+
+
+var modal7 = document.getElementById('accountstatus');
+
+window.onclick = function(event) {
+    if (event.target == modal7) {
+        modal.style.display = "none";
+    }
+}
+
+var modal8 = document.getElementById('customerstatus');
+
+window.onclick = function(event) {
+    if (event.target == modal8) {
+        modal.style.display = "none";
+    }
+}
+
+var modal9 = document.getElementById('searchaccount');
+
+window.onclick = function(event) {
+    if (event.target == modal9) {
+        modal.style.display = "none";
+    }
+}
+
+var modal10 = document.getElementById('depositmoney');
+
+window.onclick = function(event) {
+    if (event.target == modal10) {
+        modal.style.display = "none";
+    }
+}
+
+var modal11 = document.getElementById('withdrawmoney');
+
+window.onclick = function(event) {
+    if (event.target == modal11) {
+        modal.style.display = "none";
+    }
+}
+
+var modal12 = document.getElementById('transfermoney');
+
+window.onclick = function(event) {
+    if (event.target == modal12) {
+        modal.style.display = "none";
+    }
+}
+var modal13 = document.getElementById('accountstatement');
+
+window.onclick = function(event) {
+    if (event.target == modal13) {
+        modal.style.display = "none";
+    }
+}
+
+
+
+
+
 </script>
   </body>
 
