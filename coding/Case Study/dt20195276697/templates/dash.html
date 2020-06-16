@@ -7,10 +7,25 @@
    
     <link rel="stylesheet" href="{{ url_for('static',filename='css/dp3.css')}}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/dp2.css')}}">
+    <script src="{{ url_for('static',filename='js/jspage.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
     
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+<style>
+table
+{
+border: 1px solid black;
+width:100%;
+text-align: center;
+border-collapse:collapse;
+background-color:orange;
+}
+table { margin:0px; }
+</style>
   </head>
   <body>
+  
 <script>
     var error = '{{ er }}';
     if(error){
@@ -20,7 +35,7 @@
       <header>
 
           
-          <p style="font-size:55px;font-weight:bold;width:80%;left:10%;text-align:center;color:beige;">
+          <p style="font-size:55px;font-weight:bold;width:80%;left:10%;text-align:center;color:black;">
             Banking Dashboard</p>
 
 
@@ -43,10 +58,12 @@
               </button><span>
   <span><button onclick="document.getElementById('account').style.display='block'" style="width:auto;">Account Management
               </button><span>
-   <span><button onclick="document.getElementById('statusdetials').style.display='block'" style="width:auto;"> Status Detials
-              </button><span>
-  <span><button onclick="document.getElementById('operation').style.display='block'" style="width:auto;">Account Operation
-              </button><span>
+   <span><form action="/customeraccstatus" method="post"><button type="submit" >Status Detials</button></form> </span>
+             
+  
+              
+              
+              
 
 <span><form action="/logout" method="post"><button type="submit" name="lout">logout</button></form> </span>
 
@@ -67,37 +84,45 @@
                            
                            
                            <section id="customer">
-                           
+                          <label ><b>CUSTOMER MANAGEMENT</b></label> <br><br>
 	  <span><button onclick="document.getElementById('newcustomer').style.display='block'" style="width:auto;">New Customer
               </button><span>
-<span><button onclick="document.getElementById('updatecustomer').style.display='block'" style="width:auto;">Update Customer</button></span>
+              <span><button onclick="document.getElementById('searchcustomer').style.display='block'" style="width:auto;">Search Customer
+              </button><span>
+<span><button onclick="updatecus()" style="width:auto;">Update Customer</button></span>
 
- <span><button onclick="document.getElementById('deletecustomer').style.display='block'" style="width:auto;">Delete Customer
+ <span><button onclick="deletecus()" style="width:auto;">Delete Customer
               </button><span>
               
               
-               </section>
+               </section><br><br>
    
    <section id="account">
-     
+      <label ><b>ACCOUNT MANAGEMENT AND OPERATION</b></label><br><br>
    <span><button onclick="document.getElementById('addaccount').style.display='block'" style="width:auto;">Create Account</button></span>
 
  <span><button onclick="document.getElementById('deleteaccount').style.display='block'" style="width:auto;">Delete Account
               </button><span>
-  <span><button onclick="document.getElementById('searchcustomer').style.display='block'" style="width:auto;">Search Account
+  <span><button onclick="document.getElementById('searchaccount').style.display='block'" style="width:auto;">Search Account
+              </button><span>
+              
+              <span><button onclick="servicesbut()" style="width:auto;">Services
+              </button><span>
+   
+  <span><button onclick="viewbut()" style="width:auto;">View
               </button><span>
     
   </section>
-   <button> <label><b>VIEW</b></label></button>
-
+   
+<br><br>
     
     
       <section id="statusdetials">
+    <label ><b>STATUS</b></label> <br><br>
    
-   
-    <span><button onclick="document.getElementById('accountstatus').style.display='block'" style="width:auto;">Account Status</button></span>
+    <span><button onclick="AS()" style="width:auto;">Account Status</button></span>
 
- <span><button onclick="document.getElementById('customerstatus').style.display='block'" style="width:auto;">Customer Status
+ <span><button onclick="CS()" style="width:auto;">Customer Status
               </button><span>
    
   
@@ -105,20 +130,6 @@
   
   
     </section>
-    
-    
-    
-    
-    
-    <section id="operation">
-     <span><button onclick="document.getElementById('searchaccount').style.display='block'" style="width:auto;">Search Account
-              </button><span>
-   
- 
-  
-    </section>
-    
-    
     
     
     
@@ -138,7 +149,9 @@
 
                   <div class="container">
                    <label for="ssn"><b>SSN ID</b></label>
-                 <input type="text" placeholder=" Enter SSN ID" name="ssn" required>
+                 <input type="text" placeholder=" Enter 9 digit number SSN ID" name="ssn" id="usssn" required>
+                   
+           
                  <label for="name"><b>Name</b></label>
                  <input type="text" placeholder=" Enter Name of Customer" name="name" required>
                   <label for="age"><b> Age</b></label>
@@ -176,6 +189,7 @@
 
 		    </div>
         </div>
+     
         
    <div class="dropdown-content">
    
@@ -185,28 +199,26 @@
                   <span onclick="document.getElementById('updatecustomer').style.display='none'" class="close" title="Close ">&times;</span>
      
                    </div>
+           
 
                   <div class="container">
                 
                   
-                 <label for="ssnid"><b>Enter the SSN ID</b></label>
-               <input type="text" placeholder=" Enter Customer ID" name="ssnid" required>
-                 
-                   {%if(val)%}
+      
   
                  <label><b>Customer SSN ID:</b> <b>{{cssid}}</b></label><br><br>
                   <label><b>Customer ID:</b> <b>{{cusid}}</b></label><br><br>
-                  <label><b>Customer Old Name:</b> <b>{{coname}}</b></label><br><br>
+                  <label><b>Customer Old Name:</b> <b>{{cname}}</b></label><br><br>
                   
                  <label for="name"><b>Customer New Name</b></label>
                  <input type="text" placeholder=" Enter Name of Customer" name="name" required><br><br>
-                 <label><b>Customer Old Age:</b> <b>{{coage}}</b></label><br><br>
+                 <label><b>Customer Old Age:</b> <b>{{cage}}</b></label><br><br>
                   <label for="age"><b> Age</b></label>
                   <input type="text" placeholder=" Enter New Age of Customer " name="age" required><br><br>
-                  <label><b>Customer Old Address:</b> <b>{{coaddress}}</b></label><br><br>
+                  <label><b>Customer Old Address:</b> <b>{{cadd}}</b></label><br><br>
                   <label for="address"><b>  Enter New Address</b></label>
                   <input type="text" placeholder=" Enter new address " name="address" required>
-             {% endif %}
+             
                  <button type="submit">Submit</button>
       
     </div>
@@ -229,7 +241,7 @@
    <div class="dropdown-content">
    
             <div id="deletecustomer" class="modal">
-                     <form class="modal-content animate" action="/searchcus" method="post" autocomplete="off">
+                     <form class="modal-content animate" action="/deletecustomer" method="post" autocomplete="off">
                    <div class="imgcontainer">
                   <span onclick="document.getElementById('deletecustomer').style.display='none'" class="close" title="Close ">&times;</span>
      
@@ -237,13 +249,7 @@
 
                   <div class="container">
                  
-                 <label for="ssnid"><b>Enter the SSN ID</b></label>
-                 <input type="text" placeholder=" Enter SSN ID" name="ssnid" required>
                  
-                  <label for="cusid"><b>Enter the CUSTOMER ID</b></label>
-                 <input type="text" placeholder=" Enter Customer ID" name="cid" required>
-                
-            <span><form action="/adeletecus" method="post"><button type="submit" name="enter">Enter</button></form> </span>
              
              <label><b>Customer SSN ID:</b> <b>{{cssid}}</b></label><br><br>
                   <label><b>Customer ID:</b> <b>{{cusid}}</b></label><br><br>
@@ -281,17 +287,18 @@
                  
                   <label for="cid"><b>Enter the CUSTOMER ID</b></label>
                  <input type="text" placeholder=" Enter Customer ID" name="cid" required>
-                 
+                 <br><br>
                 <label for="acctype"><b>Enter the Account type</b></label>
                  <select name="acctype">
                            <option value="Saving">Saving</option>
                            <option value="current">Current</option>
                            
                  </select>
+                 <br><br>
                   <label for="acctype"><b>Enter the Deposit Amount</b></label>
                   <input type="text" placeholder=" Enter Amount" name="amount" required>
                 
-       
+       <br><br>
                  <button type="submit">Create Account</button>
       
     </div>
@@ -392,7 +399,7 @@
  <div class="dropdown-content">
    
             <div id="accountstatus" class="modal">
-                     <form class="modal-content animate" action="/accountstatus " method="post" autocomplete="off">
+                     <div class="modal-content animate">
                    <div class="imgcontainer">
                   <span onclick="document.getElementById('accountstatus').style.display='none'" class="close" title="Close ">&times;</span>
      
@@ -400,30 +407,27 @@
 
                   <div class="container">
                    
-                   
+                   {% for item in adata %}
                    <table border='1'>
-        <tr><th>cc number</th><th>vehicle register number</th><th>policy number</th><th>Fir number</th></tr>
+        <tr><th> Account ID</th><th>Customer ID </th><th>Balance</th><th>Account type</th><th>Message</th><th>last Updated</th></tr>
         <tr>
 
-              <td>
-                  {{cc}}
-              </td>
-              <td>
-                    {{vn}}
-              </td>
-                    
-               <td>
-                      {{pn}}
-               </td>
-               <td>
-                      {{fir}}
-               </td>
+               <td>{{item[0]}}</td>
+               <td>{{item[1]}}</td>
+               <td>{{item[2]}}</td>
+               <td>{{item[3]}}</td>
+               <td>{{item[4]}}</td>
+               <td>{{item[5]}}</td>
 
           </tr>
 
+              
     </table>
                  
-                 
+           {% endfor %}   
+           
+           
+            
                 
       
     </div>
@@ -432,7 +436,7 @@
       <button type="button" onclick="document.getElementById('accountstatus').style.display='none'" class="cancelbtn">Cancel</button>
       
     </div>
-  </form>
+  </div>
 
 		    </div>
         </div> 
@@ -442,13 +446,36 @@
  <div class="dropdown-content">
    
             <div id="customerstatus" class="modal">
-                     <form class="modal-content animate" action="/customerstatus" method="post" autocomplete="off">
+                     <div class="modal-content animate">
                    <div class="imgcontainer">
                   <span onclick="document.getElementById('customerstatus').style.display='none'" class="close" title="Close ">&times;</span>
      
                    </div>
 
                   <div class="container">
+                  
+                    
+                      {% for item in cdata %}
+                   <table border='1'>
+        <tr><th>SSN ID</th><th>Customer ID</th><th>Message</th><th>last Updated</th></tr>
+        <tr>
+               <td>{{item[0]}}</td>
+               <td>{{item[1]}}</td>
+               <td>{{item[2]}}</td>
+               <td>{{item[3]}}</td>
+               
+              
+
+          </tr>
+
+    </table>
+                  {% endfor %} 
+                
+                  
+       
+                 
+                
+      
                  
                  
                  
@@ -460,7 +487,7 @@
       <button type="button" onclick="document.getElementById('customerstatus').style.display='none'" class="cancelbtn">Cancel</button>
       
     </div>
-  </form>
+  </div>
 
 		    </div>
         </div>  
@@ -478,22 +505,13 @@
                   
                                   
 
-                <label for="ssnid"><b>Enter the ACCOUNT ID</b></label>
-               <input type="text" placeholder=" Enter Customer ID" name="ssnid" required>
+                <label for="aid"><b>Enter the Account ID</b></label>
+             <input type="text" placeholder=" Enter Account ID" name="aid" required>
                  
                 
        
            
      
-    <span><button onclick="document.getElementById('depositmoney').style.display='block'" style="width:auto;">Deposit Money</button></span>
-
- <span><button onclick="document.getElementById('withdrawmoney').style.display='block'" style="width:auto;">Withdraw Money
-              </button><span>
-  <span><button onclick="document.getElementById('transfermoney').style.display='block'" style="width:auto;">Transfer Money
-              </button><span>
-              
-      <span><button onclick="document.getElementById('accountstatement').style.display='block'" style="width:auto;">Account Statement
-              </button><span>
    
                  
                  
@@ -509,7 +527,148 @@
   </form>
 
 		    </div>
-        </div>  
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                
+        
+        
+                
+ <div class="dropdown-content">
+   
+            <div id="view" class="modal">
+                <div class="modal-content animate" >    
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('view').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  
+                                  
+
+                <label for="aid"><b>ABC Bank servies</b></label>    
+                 
+                 
+                 
+                 {%if(data)%}
+                 
+                 
+
+   
+   
+
+                                  
+                   <table border='1' id="htmlexportPDF">
+        <tr><th> Transcation ID</th><th>Amount </th><th>Description</th><th>Date</th></tr>
+        {% for item in data %}
+        <tr>
+
+               <td>{{item[0]}}</td>
+               <td>{{item[1]}}</td>
+               <td>{{item[2]}}</td>
+               <td>{{item[3]}}</td>
+
+          </tr>
+           {% endfor %} 
+
+    </table>
+                 
+                 
+                 
+   
+       <button id="cmd">Export PDF</button>   
+    {% else %}
+    <p>plz give Proper Details in services and in Transition</p>            
+                 
+         {% endif %}              
+                 
+             
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('view').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>  </div>
+  
+
+		    </div>
+        </div> 
+        
+        
+        
+        
+        
+        
+        
+        
+          
+        
+        
+        
+        
+        
+        
+                
+ <div class="dropdown-content">
+   
+            <div id="abccusservice" class="modal">
+                <div class="modal-content animate" >    
+                   <div class="imgcontainer">
+                  <span onclick="document.getElementById('abccusservice').style.display='none'" class="close" title="Close ">&times;</span>
+     
+                   </div>
+
+                  <div class="container">
+                  
+                                  
+
+                <label for="aid"><b>ABC Bank servies</b></label>
+             
+                 
+                
+       
+           
+     
+    <span><button onclick="document.getElementById('depositmoney').style.display='block'" name="depositm" style="width:auto;">Deposit Money</button></span>
+
+ <span><button onclick="document.getElementById('withdrawmoney').style.display='block'" name="withtdm" style="width:auto;">Withdraw Money
+              </button><span>
+  <span><button onclick="document.getElementById('transfermoney').style.display='block'" name="transferm" style="width:auto;">Transfer Money
+              </button><span>
+              
+      <span><button onclick="document.getElementById('accountstatement').style.display='block'"  name="accstatement" style="width:auto;">Account Statement
+              </button><span>
+   
+                 
+                       
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('abccusservice').style.display='none'" class="cancelbtn">Cancel</button>
+      
+    </div>  </div>
+  
+
+		    </div>
+        </div> 
+        
+        
+        
+        
+        
+        
         
         
   
@@ -527,7 +686,7 @@
                   
                   <label><b>Customer ID:</b> <b>{{cid}}</b></label><br><br>
                   <label><b>Account ID:</b> <b>{{aid}}</b></label><br><br>
-                  <label><b>Account Type:</b> <b>{{actype}}</b></label><br><br>
+                  <label><b>Account Type:</b> <b>{{at}}</b></label><br><br>
                   
                   <label><b>Balance:</b> <b>{{bal}}</b></label><br><br>
                     <label for="ssnid"><b>Enter the Amount to Deposit:</b></label>
@@ -564,7 +723,7 @@
                   
                    <label><b>Customer ID:</b> <b>{{cid}}</b></label><br><br>
                   <label><b>Account ID:</b> <b>{{aid}}</b></label><br><br>
-                  <label><b>Account Type:</b> <b>{{actype}}</b></label><br><br>
+                  <label><b>Account Type:</b> <b>{{at}}</b></label><br><br>
                   
                   <label><b>Balance:</b> <b>{{bal}}</b></label><br><br>
                     <label for="ssnid"><b>Enter the Amount to Withdraw:</b></label>
@@ -599,21 +758,21 @@
                  
                   <label for="cid"><b>Enter the Account ID to Transfer</b></label>
                  <input type="text" placeholder=" Enter  ID" name="cid" required>
-                 
+                 <br><br>
                 <label for="acctype"><b>Enter the Account Source type</b></label>
                  <select name="acctype">
                            <option value="Saving">Saving</option>
                            <option value="current">Current</option>
                            
                  </select>
-                  
+                  <br><br>
                   <label for="acctype"><b>Enter the Account Target type</b></label>
                  <select name="acctype">
                            <option value="Saving">Saving</option>
                            <option value="current">Current</option>
                            
                  </select>
-                 
+                 <br><br><br>
                  <label for="ssnid"><b>Enter the Amount to Transfer:</b></label>
                <input type="text" placeholder=" Enter amount" name="amt" required>
                  
@@ -670,20 +829,87 @@
   
   
   
-  
-  
-  
-  
-  
-  
+  <script type='text/javascript'>
+   
+    $(function(){
+         var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+   
+ $('#cmd').click(function () {
+        var table = tableToJson($('#htmlexportPDF').get(0))
+        var doc = new jsPDF('p','pt', 'a3', true);
+        doc.cellInitialize();
+        $.each(table, function (i, row){
+            console.debug(row);
+            $.each(row, function (j, cell){
+                doc.cell(10, 50,200, 50, cell, i);  // 2nd parameter=top margin,1st=left margin 3rd=row cell width 4th=Row height
+            })
+        })
+
+
+        doc.save('sample-file.pdf');
+});    
+    function tableToJson(table) {
+    var data = [];
+
+    // first row needs to be headers
+    var headers = [];
+    for (var i=0; i<table.rows[0].cells.length; i++) {
+        headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,'');
+    }
+
+
+    // go through cells
+    for (var i=0; i<table.rows.length; i++) {
+
+        var tableRow = table.rows[i];
+        var rowData = {};
+
+        for (var j=0; j<tableRow.cells.length; j++) {
+
+            rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
+
+        }
+
+        data.push(rowData);
+    }       
+
+    return data;
+}
+});
+   
+
+
+        </script>
   
   
       </section>
-
-<script>
-
-var modal1 = document.getElementById('newcustomer');
-
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+     <script>  
+      
+      var modal1 = document.getElementById('newcustomer');
 window.onclick = function(event) {
     if (event.target == modal1) {
         modal.style.display = "none";
@@ -696,6 +922,88 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+function servicesbut(){ 
+    var val ='{{vala}}';
+    console.log(val)
+    if(val){
+    alert("plz update the account id")
+    document.getElementById('abccusservice').style.display='none'
+    	}
+    else {
+    document.getElementById('abccusservice').style.display='block'
+    }
+    }
+
+
+function viewbut(){ 
+    var val ='{{vala}}';
+    console.log(val)
+    if(val){
+    alert("plz update the account id")
+    document.getElementById('view').style.display='none'
+    	}
+    else {
+    document.getElementById('view').style.display='block'
+    }
+    }
+
+
+
+
+
+
+function CS(){ 
+    var val ='{{vals}}';
+    console.log(val)
+    if(val){
+    alert("plz click on the status details")
+    document.getElementById('customerstatus').style.display='none'
+    	}
+    else {
+    document.getElementById('customerstatus').style.display='block'
+    }
+    }
+    
+  function AS(){ 
+    var val ='{{vals}}';
+    console.log(val)
+    if(val){
+    alert("plz click on the status details")
+    document.getElementById('accountstatus').style.display='none'
+    	}
+    else {
+    document.getElementById('accountstatus').style.display='block'
+    }
+    }
+
+
+
+
+function updatecus(){ 
+    var val ='{{val}}';
+    console.log(val)
+    if(val){
+    alert("plz update the customer id")
+    document.getElementById('updatecustomer').style.display='none'
+    	}
+    else {
+    document.getElementById('updatecustomer').style.display='block'
+    }
+    }
+function deletecus(){ 
+    var val ='{{val}}';
+    console.log(val)
+    if(val){
+    alert("plz update the customer id")
+    document.getElementById('deletecustomer').style.display='none'
+    	}
+    else {
+    document.getElementById('deletecustomer').style.display='block'
+    }
+
+}
 var modal3 = document.getElementById('deletecustomer');
 
 window.onclick = function(event) {
@@ -703,7 +1011,9 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
+        
+    
+  
 
 
 var modal4 = document.getElementById('addaccount');
@@ -788,12 +1098,30 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+var modal13 = document.getElementById('abccusservice');
+
+window.onclick = function(event) {
+    if (event.target == modal13) {
+        modal.style.display = "none";
+    }
+}
+var modal13 = document.getElementById('view');
+window.onclick = function(event) {
+    if (event.target == modal13) {
+        modal.style.display = "none";
+    }
+}
 
 
 
+      
+      
+    </script>   
+      
+      
+      
 
 
-</script>
   </body>
 
 </html>
