@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/dp2.css')}}">
     <script src="{{ url_for('static',filename='js/jspage.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-    
+    <script src="src/jquery.table2excel.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="src/jquery.table2excel.js"></script>
+    <script src="jquery.tableToExcel.js"></script>
     
 <style>
 table
@@ -54,10 +57,10 @@ table { margin:0px; }
               </li>
 <li class="active">
 
-  <span><button onclick="document.getElementById('customer').style.display='block'" style="width:auto;">Customer Management
+  <!--span><button onclick="document.getElementById('customer').style.display='block'" style="width:auto;">Customer Management
               </button><span>
   <span><button onclick="document.getElementById('account').style.display='block'" style="width:auto;">Account Management
-              </button><span>
+              </button><span-->
    <span><form action="/customeraccstatus" method="post"><button type="submit" >Status Detials</button></form> </span>
              
   
@@ -407,9 +410,10 @@ table { margin:0px; }
 
                   <div class="container">
                    
-                   {% for item in adata %}
+                   {% if adata %}
                    <table border='1'>
         <tr><th> Account ID</th><th>Customer ID </th><th>Balance</th><th>Account type</th><th>Message</th><th>last Updated</th></tr>
+       {% for item in adata %}
         <tr>
 
                <td>{{item[0]}}</td>
@@ -420,11 +424,15 @@ table { margin:0px; }
                <td>{{item[5]}}</td>
 
           </tr>
-
+{% endfor %} 
               
     </table>
                  
-           {% endfor %}   
+           
+           {% else %}
+    <p>plz click on status </p>            
+                 
+         {% endif %}   
            
            
             
@@ -455,21 +463,25 @@ table { margin:0px; }
                   <div class="container">
                   
                     
-                      {% for item in cdata %}
+                      {%if(cdata)%}
                    <table border='1'>
         <tr><th>SSN ID</th><th>Customer ID</th><th>Message</th><th>last Updated</th></tr>
+        {% for item in cdata %}
         <tr>
                <td>{{item[0]}}</td>
                <td>{{item[1]}}</td>
                <td>{{item[2]}}</td>
                <td>{{item[3]}}</td>
                
-              
-
+    
           </tr>
-
+{% endfor %} 
     </table>
-                  {% endfor %} 
+    {% else %}
+    <p>plz click on status</p>            
+                 
+         {% endif %} 
+                   
                 
                   
        
@@ -586,7 +598,7 @@ table { margin:0px; }
                  
                  
    
-       <button id="cmd">Export PDF</button>   
+       <button id="cmd">Export PDF</button> <!--button id="eet"><a>Export Excel</a></button-->  
     {% else %}
     <p>plz give Proper Details in services and in Transition</p>            
                  
@@ -839,6 +851,25 @@ table { margin:0px; }
         }
     };
 
+ /*  $("#eet").click(function(){
+	  $("#htmlexportPDF").table2excel({
+	    
+	    name: "Worksheet Name",
+	    filename: "SomeFile",
+	    fileext: ".xls" 
+	  });
+	});*/
+   
+   $("#eet").click(function(){ 
+ var table = document.getElementById("htmlexportPDF");
+  var html = table.outerHTML;
+  var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+  document.getElementById("htmlexportPDF").setAttribute("href", url);
+  document.getElementById("htmlexportPDF").setAttribute("download", "export.xls"); // Choose the file name
+  return false;
+}); 
+   
+   
    
  $('#cmd').click(function () {
         var table = tableToJson($('#htmlexportPDF').get(0))
